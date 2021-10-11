@@ -100,7 +100,7 @@ int main(int argc, const char *argv[]) {
             elements_read = dataset.gcount() / sizeof(unsigned short int);
         }
         task.print_result();
-        delete partition;
+        delete [] partition;
         dataset.close();
     }
     
