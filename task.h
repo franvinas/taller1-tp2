@@ -11,7 +11,7 @@ private:
     Operation *create_operation() const;
 
 public:
-    explicit Task(std::string &op_str);
+    explicit Task(const std::string &op_str);
     void apply(unsigned short int *partition, 
                int columns, 
                int partition_rows, 

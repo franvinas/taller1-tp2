@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-Task::Task(std::string &op_str): op_str(op_str) {
+Task::Task(const std::string &op_str): op_str(op_str) {
     this->op = create_operation();
 }
 
