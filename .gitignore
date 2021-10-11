@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# Other
+.vscode
+Makefile
+__*__
+cmd
+dataset
+tp2-examples.md
+*tsan
+tp
