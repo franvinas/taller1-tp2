@@ -1,8 +1,8 @@
 #include "operation.h"
 #include <iostream>
 
-
 void Operation::print_result() {
+    std::lock_guard<std::mutex> lock(this->mutex);
     std::cout << this->a << "\n";
 }
 
@@ -13,6 +13,7 @@ Sum::Sum() {
 }
 
 void Sum::apply(unsigned short int b) {
+    std::lock_guard<std::mutex> lock(this->mutex);
     this->a += b;
 }
 
@@ -21,11 +22,13 @@ Mean::Mean(): sum(0), n(0) {
 }
 
 void Mean::apply(unsigned short int b) {
+    std::lock_guard<std::mutex> lock(this->mutex);
     this->sum += b;
     this->n += 1;
 }
 
 void Mean::print_result() {
+    std::lock_guard<std::mutex> lock(this->mutex);
     std::cout << this->sum << "/" << this->n << "\n";
 }
 
@@ -34,6 +37,7 @@ Min::Min() {
 }
 
 void Min::apply(unsigned short int b) {
+    std::lock_guard<std::mutex> lock(this->mutex);
     this->a = this->a < b ? this->a : b;
 }
 
@@ -42,5 +46,6 @@ Max::Max() {
 }
 
 void Max::apply(unsigned short int b) {
+    std::lock_guard<std::mutex> lock(mutex);
     this->a = this->a > b ? this->a : b;
 }

@@ -1,11 +1,13 @@
 #ifndef OPERATION_H
 #define OPERATION_H
 
+#include <mutex>
 // las operaciones posibles son sum, mean, min y max.
 
 class Operation {
 protected:
     unsigned short int a;
+    std::mutex mutex;
 public:
     virtual void apply(unsigned short int b) = 0;
     virtual void print_result();
