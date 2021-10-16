@@ -16,6 +16,8 @@ public:
               int rows,    
               int columns,
               int column);
+    Partition(const Partition &other);
+    Partition operator=(const Partition &other);
     bool end();
     unsigned short int next();
     ~Partition();

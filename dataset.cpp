@@ -2,8 +2,10 @@
 #include <fstream>
 #include <iostream>
 #include <iostream>
+#include <string>
+#include <algorithm>
 
-Dataset::Dataset(const std::string dataset_name,
+Dataset::Dataset(const std::string &dataset_name,
                  const int partition_rows,
                  const int start_range,
                  const int end_range,
@@ -14,7 +16,8 @@ Dataset::Dataset(const std::string dataset_name,
                                 end_range(end_range),
                                 columns(columns),
                                 column(column) {
-    this->dataset = std::ifstream(dataset_name, std::ios::in | std::ios::binary);
+    this->dataset = std::ifstream(dataset_name, 
+                                 std::ios::in | std::ios::binary);
     if (!this->dataset.is_open()) {
         std::cout << "Error al abrir el archivo dataset\n";
     }

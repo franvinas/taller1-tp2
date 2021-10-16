@@ -17,7 +17,7 @@ private:
     void swap_endianness(unsigned short int *array, int size);
 
 public:
-    Dataset(const std::string dataset_name,
+    Dataset(const std::string &dataset_name,
             const int partition_rows,
             const int start_range,
             const int end_range,
