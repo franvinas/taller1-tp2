@@ -2,11 +2,10 @@
  * SPAWN - CUARTA TECNICA: template method (The Java way)
  * ************************************************************************* */
 
-#include <iostream>
+#ifndef THREAD_H
+#define THREAD_H
+
 #include <thread>
-#include "task.h"
-#include "dataset.h"
-#include "partition.h"
 
 /**
  * @brief      Abstract class wrapping a thread. It catches exceptions in order
@@ -35,7 +34,8 @@ public:
      * @brief      Waits the thread to finish.
      */
     void join();
-    Thread() {}
+    
+    Thread();
 
     Thread(Thread &&other);
 
@@ -44,23 +44,4 @@ public:
     virtual ~Thread() = default;
 };
 
-/*
- *  PartitionThread hereda de Thread e implementa run().
- */
-class PartitionThread: public Thread {
-private:
-    Partition *partition;
-    Task &task;
-    
-protected:
-    void run() override;
-
-public:
-    PartitionThread(Partition *partition, Task &task);
-
-    PartitionThread(PartitionThread&& other);
-
-    PartitionThread& operator=(PartitionThread&& other);
-
-    ~PartitionThread();
-};
+#endif

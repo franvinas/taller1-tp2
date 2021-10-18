@@ -3,7 +3,7 @@
 #include <deque>
 #include "task.h"
 #include "dataset.h"
-#include "thread.h"
+#include "partitionthread.h"
 #include "taskparser.h"
 
 
