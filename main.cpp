@@ -1,36 +1,11 @@
 #include <iostream>
 #include <string>
-#include <thread>
 #include <deque>
 #include "task.h"
 #include "dataset.h"
 #include "thread.h"
+#include "taskparser.h"
 
-void parse_task(const std::string &task, 
-                int &start_range,
-                int &end_range,
-                int &partition_rows,
-                int &column,
-                std::string &op) {
-    int i = 0, j = 0;
-    j = task.find(" ", i);
-    std::string aux_str = task.substr(i, j - i);
-    start_range = stoi(aux_str);
-    i = j + 1;
-    j = task.find(" ", i);
-    aux_str = task.substr(i, j - i);
-    end_range = stoi(aux_str);
-    i = j + 1;
-    j = task.find(" ", i);
-    aux_str = task.substr(i, j - i);
-    partition_rows = stoi(aux_str);
-    i = j + 1;
-    j = task.find(" ", i);
-    aux_str = task.substr(i, j - i);
-    column = stoi(aux_str);
-    i = j + 1;
-    op = task.substr(i, -1);
-}
 
 int main(int argc, const char *argv[]) {
     int columns = 0;
@@ -50,10 +25,12 @@ int main(int argc, const char *argv[]) {
     // workers = atoi(argv[3]);    
     
     while (std::getline(std::cin, task_str)) {
-        int start_range, end_range, partition_rows, column;
-        std::string op;
-        parse_task(task_str, start_range, end_range, 
-                   partition_rows, column, op);
+        TaskParser parser(task_str);
+        int start_range = parser.get_start_range();
+        int end_range = parser.get_end_range();
+        int partition_rows = parser.get_partition_rows();
+        int column = parser.get_column();
+        std::string op = parser.get_op();
         
         Task task(op, column);
 
