@@ -10,6 +10,8 @@ Task::Task(const std::string &op_str, const int column)
 }
 
 Operation * Task::create_operation() const {
+    // Este es el único lugar de este tp donde tiene sentido retornar puntero, ya que estás usando un polimorfismo.
+    // En el resto del TP repasá que no lo estés haciendo porque no tiene sentido.
     if (op_str == "sum")
         return new Sum();
 
@@ -20,6 +22,8 @@ Operation * Task::create_operation() const {
         return new Min();
     
     return new Max();
+
+    // Acá te conviene agregar el if del "max" y tirar alguna exception si viene otra cosa
 }
 
 void Task::apply(Partition &partition) {

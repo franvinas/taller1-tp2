@@ -2,6 +2,8 @@
  * SPAWN - CUARTA TECNICA: template method (The Java way)
  * ************************************************************************* */
 
+// Poné una documentación acorde y aclará que usás nuestra clase Thread
+
 #include <iostream>
 #include <thread>
 #include "task.h"
@@ -44,11 +46,14 @@ public:
     virtual ~Thread() = default;
 };
 
+
+// Esto movelo a otro archivo
 /*
  *  PartitionThread hereda de Thread e implementa run().
  */
 class PartitionThread: public Thread {
 private:
+    // Mejor recibir esta partition por movimiento
     Partition *partition;
     Task &task;
     
