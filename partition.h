@@ -16,6 +16,8 @@ public:
               int rows,    
               int columns,
               int column);
+
+    // Hacer movible y no copiable, y no usar punteros a Partition en el resto del cóødigo
     Partition(const Partition &other);
     
     Partition(Partition&& other);

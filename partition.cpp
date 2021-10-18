@@ -10,6 +10,7 @@ Partition::Partition(const unsigned short int *data,
                       current_row(0), 
                       column(column) {
     int partition_size = rows * columns;
+    // aprovechá std::vector
     this->data = new unsigned short int [partition_size];
     if (this->data == NULL) {
         std::cout << "Error al alocar memoria en el heap\n";
@@ -42,6 +43,7 @@ Partition::Partition(const Partition &other) {
     this->columns = other.columns;
     this->current_row = other.current_row;
     this->column = other.column;
+    // Aprovechar std::vector (mirá la clase de la STL for reference)
     this->data = new unsigned short int [rows * columns];
     int bytes_to_copy = rows * columns * sizeof(unsigned short int);
     std::memcpy(this->data, other.data, bytes_to_copy);

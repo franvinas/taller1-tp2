@@ -6,6 +6,8 @@
 #include "dataset.h"
 #include "thread.h"
 
+// Probá usar std::stringstream mejor, tiene el operator >> que te simplifica todo
+// 2do comment: Esto es lógica global, y tiene que estar encapsulada en alguna clase de tu diseno (un TaskParser tal vez?)
 void parse_task(const std::string &task, 
                 int &start_range,
                 int &end_range,
@@ -49,6 +51,7 @@ int main(int argc, const char *argv[]) {
     columns = atoi(argv[2]);
     // workers = atoi(argv[3]);    
     
+    // Esta lógica también es global, encapsularla en alguna entidad del diseno
     while (std::getline(std::cin, task_str)) {
         int start_range, end_range, partition_rows, column;
         std::string op;
