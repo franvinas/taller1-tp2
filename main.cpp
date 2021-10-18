@@ -1,7 +1,10 @@
 #include <iostream>
 #include <string>
+#include <thread>
+#include <deque>
 #include "task.h"
 #include "dataset.h"
+#include "thread.h"
 
 void parse_task(const std::string &task, 
                 int &start_range,
@@ -61,9 +64,17 @@ int main(int argc, const char *argv[]) {
                         columns,
                         column);
         
+        std::deque<PartitionThread> thread_queue;
         while (!dataset.eof()) {
-            Partition partition = dataset.read_partition();
-            task.apply(partition);
+            Partition *partition = dataset.read_partition();
+            PartitionThread partition_thread(partition, task);
+            thread_queue.push_back(std::move(partition_thread));
+            thread_queue.back().start();
+        }
+        
+        while (!thread_queue.empty()) {
+            thread_queue.front().join();
+            thread_queue.pop_front();
         }
 
         task.print_result();

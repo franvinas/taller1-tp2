@@ -3,6 +3,7 @@
 
 #include <string>
 #include <fstream>
+#include <mutex>
 #include "partition.h"
 
 class Dataset {
@@ -14,6 +15,7 @@ private:
     int end_range;
     int columns;
     int column;
+    std::mutex mutex;
     void swap_endianness(unsigned short int *array, int size);
 
 public:
@@ -23,7 +25,7 @@ public:
             const int end_range,
             const int columns,
             const int column);
-    Partition read_partition();
+    Partition *read_partition();
     bool eof();
     
     ~Dataset();

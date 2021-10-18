@@ -25,7 +25,8 @@ Dataset::Dataset(const std::string &dataset_name,
     dataset.seekg(start_range * columns * sizeof(unsigned short int));
 }
 
-Partition Dataset::read_partition() {
+Partition *Dataset::read_partition() {
+    std::lock_guard<std::mutex> lock(this->mutex);
     int bytes_to_read = std::min(end_range - current_row, partition_rows) 
                             * columns * sizeof(unsigned short int);
     int partition_size = columns * partition_rows;
@@ -38,7 +39,10 @@ Partition Dataset::read_partition() {
     swap_endianness(partition_data, elements_read);
     int partition_real_rows = elements_read / columns;
     current_row += partition_real_rows;
-    Partition partition(partition_data, partition_real_rows, columns, column);
+    Partition * partition = new Partition(partition_data, 
+                                          partition_real_rows, 
+                                          columns, 
+                                          column);
     delete [] partition_data;
 
     return partition;
