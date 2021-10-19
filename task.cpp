@@ -4,12 +4,34 @@
 #include <iostream>
 
 
-Task::Task(const std::string &op_str, const int column)
-            : op_str(op_str), column(column) {
-    this->op = create_operation();
+Task::Task(const TaskAttributes &attributes)
+            : attributes(std::move(attributes)) {
+    try {
+        this->op = create_operation(this->attributes.get_op());
+    } catch(...) {
+        std::cerr << "Excepcion: operacion no valida" << std::endl;
+    }
 }
 
-Operation * Task::create_operation() const {
+Task::Task(Task&& other) 
+            : attributes(std::move(other.attributes)),
+              op(other.op) {
+    other.op = nullptr;
+}
+
+Task& Task::operator=(Task&& other) {
+    if (this == &other)
+        return *this;
+
+    this->attributes = std::move(other.attributes);
+    this->op = other.op;
+    other.op = nullptr;
+
+    return *this;
+}
+
+
+Operation * Task::create_operation(const std::string &op_str) const {
     if (op_str == "sum")
         return new Sum();
 
@@ -18,8 +40,10 @@ Operation * Task::create_operation() const {
 
     if (op_str == "min")
         return new Min();
-    
-    return new Max();
+    if (op_str == "max")
+        return new Max();
+
+    throw -1;
 }
 
 void Task::apply(Partition &partition) {
@@ -31,6 +55,10 @@ void Task::apply(Partition &partition) {
 
 void Task::print_result() {
     this->op->print_result();
+}
+
+const TaskAttributes &Task::get_attributes() const {
+    return this->attributes;
 }
 
 Task::~Task() {

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <mutex>
 #include "partition.h"
+#include "taskattributes.h"
 
 class Dataset {
 private:
@@ -20,11 +21,8 @@ private:
 
 public:
     Dataset(const std::string &dataset_name,
-            const int &partition_rows,
-            const int &start_range,
-            const int &end_range,
             const int &columns,
-            const int &column);
+            const TaskAttributes &attributes);
     Partition read_partition();
     bool eof();
     

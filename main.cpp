@@ -1,11 +1,11 @@
 #include <iostream>
 #include <string>
 #include <deque>
+#include <optional>
 #include "task.h"
 #include "dataset.h"
 #include "partitionthread.h"
-#include "taskparser.h"
-
+#include "taskqueue.h"
 
 int main(int argc, const char *argv[]) {
     int columns = 0;
@@ -24,22 +24,12 @@ int main(int argc, const char *argv[]) {
     columns = atoi(argv[2]);
     // workers = atoi(argv[3]);    
     
-    while (std::getline(std::cin, task_str)) {
-        TaskParser parser(task_str);
-        const int start_range = parser.get_start_range();
-        const int end_range = parser.get_end_range();
-        const int partition_rows = parser.get_partition_rows();
-        const int column = parser.get_column();
-        const std::string op = parser.get_op();
+    TaskQueue taskQueue;
+    // Task task;
+    while ( !taskQueue.read_task() ) {
+        Task task = std::move(taskQueue.get_new_task());
 
-        Task task(op, column);
-
-        Dataset dataset(file_name,
-                        partition_rows,
-                        start_range,
-                        end_range,
-                        columns,
-                        column);
+        Dataset dataset(file_name, columns, task.get_attributes());
         
         std::deque<PartitionThread> thread_queue;
         while (!dataset.eof()) {

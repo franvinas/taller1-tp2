@@ -4,18 +4,17 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include "taskattributes.h"
 
-Dataset::Dataset(const std::string &dataset_name,
-                 const int &partition_rows,
-                 const int &start_range,
-                 const int &end_range,
+Dataset::Dataset(const std::string &dataset_name, 
                  const int &columns,
-                 const int &column) : partition_rows(partition_rows), 
-                                current_row(start_range),
-                                start_range(start_range),
-                                end_range(end_range),
-                                columns(columns),
-                                column(column) {
+                 const TaskAttributes &attributes) 
+                 : partition_rows(attributes.get_partition_rows()), 
+                   current_row(attributes.get_start_range()),
+                   start_range(attributes.get_start_range()),
+                   end_range(attributes.get_end_range()),
+                   columns(columns),
+                   column(attributes.get_column()) {
     this->dataset = std::ifstream(dataset_name, 
                                  std::ios::in | std::ios::binary);
     if (!this->dataset.is_open()) {

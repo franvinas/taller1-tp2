@@ -4,18 +4,21 @@
 #include <string>
 #include "operation.h"
 #include "partition.h"
+#include "taskattributes.h"
 
 class Task {
 private:
-    std::string op_str;
-    int column;
+    TaskAttributes attributes;
     Operation *op;
-    Operation *create_operation() const;
+    Operation *create_operation(const std::string &op_str) const;
 
 public:
-    explicit Task(const std::string &op_str, const int column);
+    explicit Task(const TaskAttributes &attributes);
+    Task(Task&& other);
+    Task& operator=(Task&& other);
     void apply(Partition &partition);
     void print_result();
+    const TaskAttributes &get_attributes() const;
     ~Task();
 };
 
