@@ -2,10 +2,12 @@
 #define PARTITION_h
 
 #include <string>
+#include <vector>
 
 class Partition {
 private:
-    unsigned short int * data;
+    // unsigned short int * data;
+    std::vector<unsigned short int> data;
     int rows;
     int columns;
     int current_row;
@@ -16,6 +18,7 @@ public:
               int rows,    
               int columns,
               int column);
+    
     Partition(const Partition &other);
     
     Partition(Partition&& other);
@@ -23,8 +26,8 @@ public:
     Partition& operator=(Partition&& other);
     
     bool end();
+
     unsigned short int next();
-    ~Partition();
 };
 
 #endif

@@ -9,32 +9,22 @@ Partition::Partition(const unsigned short int *data,
                       columns(columns), 
                       current_row(0), 
                       column(column) {
-    int partition_size = rows * columns;
-    this->data = new unsigned short int [partition_size];
-    if (this->data == NULL) {
-        std::cout << "Error al alocar memoria en el heap\n";
-        return;
-    }
-    
-    std::memcpy(this->data, data, partition_size * sizeof(unsigned short int));
+    for (int i = 0; i < rows * columns; i++)
+        this->data.push_back(data[i]);
 }
 
 Partition::Partition(Partition&& other) 
-                    : data(other.data),
+                    : data(std::move(other.data)),
                     rows(other.rows), 
                     columns(other.columns),
                     current_row(other.current_row),
-                    column(other.column) {
-    other.data = nullptr;
-}
+                    column(other.column) {}
 
 Partition& Partition::operator=(Partition&& other) {
     if (this == &other)
         return *this;
 
-    if (this->data)
-        delete [] this->data;
-
+    this->data = std::move(other.data);
     this->data = other.data;
     this->rows = other.rows;
     this->columns = other.columns;
@@ -51,9 +41,5 @@ bool Partition::end() {
 unsigned short int Partition::next() {
     int idx = current_row * columns + column;
     current_row++;
-    return data[idx];
-}
-
-Partition::~Partition() {
-    delete [] this->data;
+    return data.at(idx);
 }
