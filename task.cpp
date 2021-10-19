@@ -24,7 +24,8 @@ Operation * Task::create_operation() const {
 
 void Task::apply(Partition &partition) {
     while (!partition.end()) {
-        this->op->apply(partition.next());
+        unsigned short int n = partition.next();
+        this->op->apply(n);
     }
 }
 

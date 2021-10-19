@@ -10,20 +10,20 @@
  */
 class PartitionThread: public Thread {
 private:
-    Partition *partition;
+    Partition partition;
     Task &task;
     
 protected:
     void run() override;
 
 public:
-    PartitionThread(Partition *partition, Task &task);
+    PartitionThread(Partition &partition, Task &task);
 
     PartitionThread(PartitionThread&& other);
 
     PartitionThread& operator=(PartitionThread&& other);
 
-    ~PartitionThread();
+    // ~PartitionThread();
 };
 
 #endif

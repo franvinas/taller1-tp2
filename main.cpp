@@ -26,12 +26,12 @@ int main(int argc, const char *argv[]) {
     
     while (std::getline(std::cin, task_str)) {
         TaskParser parser(task_str);
-        int start_range = parser.get_start_range();
-        int end_range = parser.get_end_range();
-        int partition_rows = parser.get_partition_rows();
-        int column = parser.get_column();
-        std::string op = parser.get_op();
-        
+        const int start_range = parser.get_start_range();
+        const int end_range = parser.get_end_range();
+        const int partition_rows = parser.get_partition_rows();
+        const int column = parser.get_column();
+        const std::string op = parser.get_op();
+
         Task task(op, column);
 
         Dataset dataset(file_name,
@@ -43,7 +43,7 @@ int main(int argc, const char *argv[]) {
         
         std::deque<PartitionThread> thread_queue;
         while (!dataset.eof()) {
-            Partition *partition = dataset.read_partition();
+            Partition partition = std::move(dataset.read_partition());
             PartitionThread partition_thread(partition, task);
             thread_queue.push_back(std::move(partition_thread));
             thread_queue.back().start();

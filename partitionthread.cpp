@@ -1,15 +1,13 @@
 #include "partitionthread.h"
 
-PartitionThread::PartitionThread(Partition *partition, Task &task) 
-                                : partition(partition),
+PartitionThread::PartitionThread(Partition &partition, Task &task) 
+                                : partition(std::move(partition)),
                                 task(task) {}
 
 PartitionThread::PartitionThread(PartitionThread&& other) 
                                  : Thread(std::move(other)), 
                                  partition(std::move(other.partition)), 
-                                 task(other.task) {
-    other.partition = nullptr;
-}
+                                 task(other.task) {}
 
 PartitionThread& PartitionThread::operator=(PartitionThread&& other) {
     if (this == &other)
@@ -19,15 +17,10 @@ PartitionThread& PartitionThread::operator=(PartitionThread&& other) {
     this->partition = std::move(other.partition);
     this->task = std::move(other.task);
 
-    other.partition = nullptr;
-
     return *this;
 }
 
 void PartitionThread::run() {
-    task.apply(*partition);
+    task.apply(partition);
 }
 
-PartitionThread::~PartitionThread() {
-    delete this->partition;
-}
