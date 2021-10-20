@@ -4,8 +4,8 @@
 #include <string>
 #include <fstream>
 #include <mutex>
-#include "partition.h"
-#include "partitionmetadata.h"
+#include "Partition.h"
+#include "PartitionMetadata.h"
 
 class Dataset {
 private:

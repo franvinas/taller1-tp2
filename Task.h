@@ -2,10 +2,10 @@
 #define TASK_H
 
 #include <string>
-#include "operation.h"
-#include "partition.h"
-#include "taskattributes.h"
-#include "partitionmetadata.h"
+#include "Operation.h"
+#include "Partition.h"
+#include "TaskAttributes.h"
+#include "PartitionMetadata.h"
 
 class Task {
 private:

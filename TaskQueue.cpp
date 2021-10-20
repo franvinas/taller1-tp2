@@ -1,5 +1,5 @@
-#include "taskqueue.h"
-#include "taskattributes.h"
+#include "TaskQueue.h"
+#include "TaskAttributes.h"
 #include <string>
 #include <iostream>
 

@@ -1,14 +1,13 @@
-#include "dataset.h"
 #include <fstream>
 #include <iostream>
 #include <iostream>
 #include <string>
-#include <algorithm>
-#include "partitionmetadata.h"
+#include "Dataset.h"
 
 Dataset::Dataset(const std::string &dataset_name, 
                  const int &columns) 
-                 : dataset(std::ifstream(dataset_name, std::ios::in | std::ios::binary)),
+                 : dataset(std::ifstream(dataset_name, 
+                           std::ios::in | std::ios::binary)),
                  columns(columns) {
     // this->dataset = ;
     if (!this->dataset.is_open()) {
@@ -28,7 +27,8 @@ Partition Dataset::read_partition(PartitionMetadata partitionMetadata) {
     if (partition_data == NULL) {
         std::cout << "Error al alocar memoria\n";
     }
-    this->dataset.read((char *) partition_data, partition_size * sizeof(unsigned short int));
+    this->dataset.read((char *) partition_data, 
+                        partition_size * sizeof(unsigned short int));
     int elements_read = this->dataset.gcount() / sizeof(unsigned short int);
     swap_endianness(partition_data, elements_read);
     int partition_real_rows = elements_read / columns;

@@ -1,4 +1,4 @@
-#include "partitionthread.h"
+#include "PartitionThread.h"
 
 PartitionThread::PartitionThread(Partition &partition, Task &task) 
                                 : partition(std::move(partition)),

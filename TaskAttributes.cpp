@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include "taskattributes.h"
-#include "partitionmetadata.h"
+#include <algorithm>
+#include "TaskAttributes.h"
 
 TaskAttributes::TaskAttributes(const std::string &task_str) 
                                : start_range(0),
@@ -40,8 +40,8 @@ PartitionMetadata TaskAttributes::new_partition_metadata() {
     if (current_row >= end_range) throw -1;
     
     int to_row = std::min(current_row + partition_rows, end_range);
-    
-    PartitionMetadata partitionMetadata(this->current_row, to_row, this->column);
+    int from_row = this->current_row;
     this->current_row += partition_rows;
-    return partitionMetadata;
+    
+    return PartitionMetadata(from_row, to_row, this->column);
 }

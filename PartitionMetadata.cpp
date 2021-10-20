@@ -1,4 +1,4 @@
-#include "partitionmetadata.h"
+#include "PartitionMetadata.h"
 
 PartitionMetadata::PartitionMetadata(int from_row, int to_row, int column) 
                                     : from_row(from_row),

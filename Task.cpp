@@ -1,6 +1,4 @@
-#include "task.h"
-#include "operation.h"
-#include "partitionmetadata.h"
+#include "Task.h"
 #include <string>
 #include <iostream>
 

@@ -1,8 +1,6 @@
 #ifndef PARTITION_METADATA_H
 #define PARTITION_METADATA_H
 
-#include "partitionmetadata.h"
-
 class PartitionMetadata {
 private:
     int from_row;

@@ -1,9 +1,9 @@
 #ifndef PARTITION_THREAD_H
 #define PARTITION_THREAD_H
 
-#include "thread.h"
-#include "task.h"
-#include "partition.h"
+#include "Thread.h"
+#include "Task.h"
+#include "Partition.h"
 
 /*
  *  PartitionThread hereda de Thread e implementa run().

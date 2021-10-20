@@ -1,4 +1,4 @@
-#include "partition.h"
+#include "Partition.h"
 #include <fstream>
 #include <cstring>
 #include <iostream>

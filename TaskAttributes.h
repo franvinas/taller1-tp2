@@ -3,7 +3,7 @@
 
 #include <string>
 #include <sstream>
-#include "partitionmetadata.h"
+#include "PartitionMetadata.h"
 
 class TaskAttributes {
 private:

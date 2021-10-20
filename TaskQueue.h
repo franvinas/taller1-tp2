@@ -1,7 +1,7 @@
 #ifndef TASK_QUEUE_H
 #define TASK_QUEUE_H
 
-#include "task.h"
+#include "Task.h"
 #include <string>
 
 class TaskQueue {
