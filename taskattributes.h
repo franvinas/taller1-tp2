@@ -3,6 +3,7 @@
 
 #include <string>
 #include <sstream>
+#include "partitionmetadata.h"
 
 class TaskAttributes {
 private:
@@ -10,16 +11,15 @@ private:
     int end_range;
     int partition_rows;
     int column;
+    int current_row;
     std::string op;
 
 public:
     explicit TaskAttributes(const std::string &task_str);
     TaskAttributes(const TaskAttributes &other);
-    int get_start_range() const;
-    int get_end_range() const;
-    int get_partition_rows() const;
-    int get_column() const;
     std::string get_op() const;
+    bool done();
+    PartitionMetadata new_partition_metadata();
 };
 
 #endif

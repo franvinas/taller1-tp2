@@ -27,13 +27,15 @@ int main(int argc, const char *argv[]) {
     TaskQueue taskQueue;
     // Task task;
     while ( !taskQueue.read_task() ) {
+
         Task task = std::move(taskQueue.get_new_task());
 
-        Dataset dataset(file_name, columns, task.get_attributes());
+        Dataset dataset(file_name, columns);
         
         std::deque<PartitionThread> thread_queue;
-        while (!dataset.eof()) {
-            Partition partition = std::move(dataset.read_partition());
+        while (!task.done()) {
+            PartitionMetadata partitionMetadata = task.new_partition_metadata();
+            Partition partition = std::move(dataset.read_partition(partitionMetadata));
             PartitionThread partition_thread(partition, task);
             thread_queue.push_back(std::move(partition_thread));
             thread_queue.back().start();

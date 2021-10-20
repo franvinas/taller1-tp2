@@ -6,9 +6,7 @@
 TaskQueue::TaskQueue() {}
 
 Task TaskQueue::get_new_task() {
-    TaskAttributes taskAttributtes(task_str);
-    
-    return Task(taskAttributtes);
+    return Task(task_str);
 }
 
 bool TaskQueue::read_task() {

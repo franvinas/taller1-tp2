@@ -1,11 +1,12 @@
 #include "task.h"
 #include "operation.h"
+#include "partitionmetadata.h"
 #include <string>
 #include <iostream>
 
 
-Task::Task(const TaskAttributes &attributes)
-            : attributes(std::move(attributes)) {
+Task::Task(const std::string &task_str)
+            : attributes(task_str) {
     try {
         this->op = create_operation(this->attributes.get_op());
     } catch(...) {
@@ -40,6 +41,7 @@ Operation * Task::create_operation(const std::string &op_str) const {
 
     if (op_str == "min")
         return new Min();
+
     if (op_str == "max")
         return new Max();
 
@@ -57,8 +59,12 @@ void Task::print_result() {
     this->op->print_result();
 }
 
-const TaskAttributes &Task::get_attributes() const {
-    return this->attributes;
+bool Task::done() {
+    return this->attributes.done();
+}
+
+PartitionMetadata Task::new_partition_metadata() {
+    return this->attributes.new_partition_metadata();
 }
 
 Task::~Task() {

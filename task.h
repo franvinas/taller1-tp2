@@ -5,6 +5,7 @@
 #include "operation.h"
 #include "partition.h"
 #include "taskattributes.h"
+#include "partitionmetadata.h"
 
 class Task {
 private:
@@ -13,12 +14,13 @@ private:
     Operation *create_operation(const std::string &op_str) const;
 
 public:
-    explicit Task(const TaskAttributes &attributes);
+    explicit Task(const std::string &task_str);
     Task(Task&& other);
     Task& operator=(Task&& other);
     void apply(Partition &partition);
     void print_result();
-    const TaskAttributes &get_attributes() const;
+    bool done();
+    PartitionMetadata new_partition_metadata();
     ~Task();
 };
 

@@ -35,7 +35,7 @@ Partition& Partition::operator=(Partition&& other) {
 }
 
 bool Partition::end() {
-        return current_row >= rows;
+    return current_row >= rows;
 }
 
 unsigned short int Partition::next() {
