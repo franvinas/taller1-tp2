@@ -2,6 +2,7 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <utility>
 #include "TaskAttributes.h"
 
 TaskAttributes::TaskAttributes(const std::string &task_str) 

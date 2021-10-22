@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cstring>
 #include <iostream>
+#include <utility>
 
 Partition::Partition(const unsigned short int *data, 
                      int rows, int columns, int column)
