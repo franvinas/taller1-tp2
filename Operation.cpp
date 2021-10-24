@@ -1,9 +1,14 @@
 #include "Operation.h"
 #include <iostream>
 
+Operation::Operation() : a(0), result_printed(false) {}
+
 void Operation::print_result() {
     std::lock_guard<std::mutex> lock(this->mutex);
-    std::cout << this->a << "\n";
+    if (!this->result_printed) {
+        std::cout << this->a << "\n";
+        this->result_printed = true;
+    }
 }
 
 Operation::~Operation() {}
@@ -29,7 +34,10 @@ void Mean::apply(const unsigned short int &b) {
 
 void Mean::print_result() {
     std::lock_guard<std::mutex> lock(this->mutex);
-    std::cout << this->sum << "/" << this->n << "\n";
+    if (!this->result_printed) {
+        std::cout << this->sum << "/" << this->n << "\n";
+        this->result_printed = true;
+    }
 }
 
 Min::Min() {

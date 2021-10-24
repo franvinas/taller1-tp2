@@ -2,10 +2,12 @@
 #include <string>
 #include <deque>
 #include <optional>
+#include <vector>
+#include <algorithm>
 #include "Task.h"
 #include "Dataset.h"
-#include "PartitionThread.h"
 #include "TaskQueue.h"
+#include "Worker.h"
 
 int main(int argc, const char *argv[]) {
     if (argc != 4) {
@@ -18,31 +20,35 @@ int main(int argc, const char *argv[]) {
     std::string file_name = argv[1];
 
     int columns = atoi(argv[2]);
-    // int workers = atoi(argv[3]);    
+    int n_workers = atoi(argv[3]);    
     
     TaskQueue taskQueue;
+    Dataset dataset(file_name, columns);
     
-    while (!taskQueue.read_task()) {
-        Task task = std::move(taskQueue.get_new_task());
+    std::vector<Worker> workers;
 
-        Dataset dataset(file_name, columns);
-        
-        std::deque<PartitionThread> thread_queue;
-        while (!task.done()) {
-            PartitionMetadata pMetadata = task.new_partition_metadata();
-            Partition partition = std::move(dataset.read_partition(pMetadata));
-            PartitionThread partition_thread(partition, task);
-            thread_queue.push_back(std::move(partition_thread));
-            thread_queue.back().start();
-        }
-        
-        while (!thread_queue.empty()) {
-            thread_queue.front().join();
-            thread_queue.pop_front();
-        }
+    for (int i = 0; i < n_workers; i++)
+        workers.push_back(Worker(taskQueue, dataset));
 
-        task.print_result();
-    }
+    // std::for_each(workers.begin(), workers.end(), start);
+    for (int i = 0; i < n_workers; i++)
+        workers.at(i).start();
+
+    for (int i = 0; i < n_workers; i++)
+        workers.at(i).join();
+
+
+
+
+    // Worker w1(taskQueue, dataset);
+    // Worker w2(taskQueue, dataset);
+    
+    // w1.start();
+    // w2.start();
+
+    // w1.join();
+    // w2.join();
+    
     
     return 0;
 }

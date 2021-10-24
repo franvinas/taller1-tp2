@@ -7,8 +7,10 @@
 class Operation {
 protected:
     unsigned short int a;
+    bool result_printed;
     std::mutex mutex;
 public:
+    Operation();
     virtual void apply(const unsigned short int &b) = 0;
     virtual void print_result();
     virtual ~Operation();

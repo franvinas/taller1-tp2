@@ -46,15 +46,23 @@ Operation * Task::create_operation(const std::string &op_str) const {
     throw -1;
 }
 
-void Task::apply(Partition &partition) {
+bool Task::apply(Dataset &dataset) {
+    this->mutex.lock();
+    if (this->done()) return true;
+    PartitionMetadata pMetadata = this->new_partition_metadata();
+    Partition partition = std::move(dataset.read_partition(pMetadata));
+    this->mutex.unlock();
     while (!partition.end()) {
         unsigned short int n = partition.next();
         this->op->apply(n);
     }
+    this->attributes.partition_done();
+    return this->done();
 }
 
 void Task::print_result() {
-    this->op->print_result();
+    if (this->done())
+        this->op->print_result();
 }
 
 bool Task::done() {
