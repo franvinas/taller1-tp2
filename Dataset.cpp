@@ -8,7 +8,7 @@ Dataset::Dataset(const std::string &dataset_name,
                            std::ios::in | std::ios::binary)),
                  columns(columns) {
     if (!this->dataset.is_open()) {
-        std::cout << "Error al abrir el archivo dataset\n";
+        std::cerr << "Error al abrir el archivo dataset\n";
         throw -1;
     }
 }
@@ -22,7 +22,8 @@ Partition Dataset::read_partition(const PartitionMetadata &partitionMetadata) {
     int partition_size = columns * (to_row - from_row);
     unsigned short int *partition_data = new unsigned short int[partition_size];
     if (partition_data == NULL) {
-        std::cout << "Error al alocar memoria\n";
+        std::cerr << "Error al alocar memoria\n";
+        throw -1;
     }
     this->dataset.read((char *) partition_data, 
                         partition_size * sizeof(unsigned short int));

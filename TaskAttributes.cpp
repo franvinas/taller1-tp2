@@ -59,7 +59,7 @@ bool TaskAttributes::done() const {
 
 PartitionMetadata TaskAttributes::new_partition_metadata() {
     if (current_row >= end_range) {
-        std::cout << "No hay mas particiones\n";
+        std::cerr << "No hay mas particiones\n";
         throw -1;
     }
     
