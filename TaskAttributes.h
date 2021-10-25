@@ -1,10 +1,8 @@
 #ifndef TASK_ATTRIBUTES_H
 #define TASK_ATTRIBUTES_H
 
-#include <string>
-#include <sstream>
-#include <mutex>
 #include "PartitionMetadata.h"
+#include <string>
 
 class TaskAttributes {
 private:
@@ -18,11 +16,30 @@ private:
     int partitions_done;
 
 public:
+    /*
+     *  Constructor
+     */
     explicit TaskAttributes(const std::string &task_str);
+    /*
+     *  Constructor por copia
+     */
     TaskAttributes(const TaskAttributes &other);
+    /*
+     *  Devuelve un string con el nombre de la operacion
+     */
     std::string get_op() const;
-    bool done();
+    /*
+     *  Devuelve true si ya se 'pidieron' todas las particiones
+     *  sino devuelve false
+     */
+    bool done() const;
+    /*
+     *  Aumenta en 1 el contador de particiones procesadas
+     */
     void partition_done();
+    /*
+     *  Devuelve la metadata de la proxima particion a procesar
+     */
     PartitionMetadata new_partition_metadata();
 };
 

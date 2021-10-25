@@ -1,12 +1,10 @@
 #ifndef PARTITION_H
 #define PARTITION_H
 
-#include <string>
 #include <vector>
 
 class Partition {
 private:
-    // unsigned short int * data;
     std::vector<unsigned short int> data;
     int rows;
     int columns;
@@ -14,19 +12,32 @@ private:
     int column;
 
 public:
+    /*
+     *  Constructor
+     */
     Partition(const unsigned short int *data,
-              int rows,    
-              int columns,
-              int column);
-    
+              const int &rows,    
+              const int &columns,
+              const int &column);
+    /*
+     *  Constructor por copia
+     */
     Partition(const Partition &other);
-    
+    /*
+     *  Constructor por movimiento
+     */
     Partition(Partition&& other);
-
+    /*
+     *  Asignacion por movimiento
+     */
     Partition& operator=(Partition&& other);
-    
-    bool end();
-
+    /*
+     *  Devuelve true si ya se iteró por todas las filas de la particion
+     */
+    bool end() const;
+    /*
+     *  Devuelve el proximo valor en la columna que corresponde
+     */
     unsigned short int next();
 };
 

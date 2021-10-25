@@ -1,24 +1,32 @@
 #ifndef DATASET_H
 #define DATASET_H
 
+#include "PartitionMetadata.h"
+#include "Partition.h"
 #include <string>
 #include <fstream>
 #include <mutex>
-#include "Partition.h"
-#include "PartitionMetadata.h"
 
 class Dataset {
 private:
     std::ifstream dataset;
-    int columns;
+    const int columns;
     std::mutex mutex;
-    void swap_endianness(unsigned short int *array, int size);
+    void swap_endianness(unsigned short int *array, const int n) const;
 
 public:
-    Dataset(const std::string &dataset_name,
-            const int &columns);
-    Partition read_partition(PartitionMetadata partitionMetadata);
-    
+    /*
+     *  Constructor
+     */
+    Dataset(const std::string &dataset_name, const int &columns);
+    /*
+     *  Devuelve una instancia de tipo Partition segun 
+     *  lo que indica partitionMetadata
+     */
+    Partition read_partition(const PartitionMetadata &partitionMetadata);
+    /*
+     *  Destructor
+     */
     ~Dataset();
 };
 

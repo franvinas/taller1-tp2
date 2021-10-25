@@ -1,6 +1,4 @@
 #include "Worker.h"
-#include "PartitionMetadata.h"
-#include "Task.h"
 
 Worker::Worker(TaskQueue &taskQueue, Dataset &dataset) 
                 : taskQueue(taskQueue),

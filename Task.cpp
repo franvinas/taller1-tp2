@@ -1,4 +1,5 @@
 #include "Task.h"
+#include "Partition.h"
 #include <string>
 #include <iostream>
 #include <utility>
@@ -65,7 +66,7 @@ void Task::print_result() {
         this->op->print_result();
 }
 
-bool Task::done() {
+bool Task::done() const {
     return this->attributes.done();
 }
 

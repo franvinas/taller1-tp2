@@ -10,9 +10,21 @@ protected:
     bool result_printed;
     std::mutex mutex;
 public:
+    /*
+     *  Constructor
+     */
     Operation();
+    /*
+     *  Aplica la operacion que corresponde usando el valor de b
+     */
     virtual void apply(const unsigned short int &b) = 0;
+    /*
+     *  Imprime el resultado (solo si todavia no fue impreso)
+     */
     virtual void print_result();
+    /*
+     *  Destructor
+     */
     virtual ~Operation();
 };
 

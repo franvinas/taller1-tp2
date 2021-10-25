@@ -1,11 +1,8 @@
 #include "Partition.h"
-#include <fstream>
-#include <cstring>
-#include <iostream>
 #include <utility>
 
 Partition::Partition(const unsigned short int *data, 
-                     int rows, int columns, int column)
+                     const int &rows, const int &columns, const int &column)
                     : rows(rows), 
                       columns(columns), 
                       current_row(0), 
@@ -35,7 +32,7 @@ Partition& Partition::operator=(Partition&& other) {
     return *this;
 }
 
-bool Partition::end() {
+bool Partition::end() const {
     return current_row >= rows;
 }
 

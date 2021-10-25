@@ -1,22 +1,19 @@
-#include <fstream>
-#include <iostream>
+#include "Dataset.h"
 #include <iostream>
 #include <string>
-#include "Dataset.h"
 
 Dataset::Dataset(const std::string &dataset_name, 
                  const int &columns) 
                  : dataset(std::ifstream(dataset_name, 
                            std::ios::in | std::ios::binary)),
                  columns(columns) {
-    // this->dataset = ;
     if (!this->dataset.is_open()) {
         std::cout << "Error al abrir el archivo dataset\n";
         throw -1;
     }
 }
 
-Partition Dataset::read_partition(PartitionMetadata partitionMetadata) {
+Partition Dataset::read_partition(const PartitionMetadata &partitionMetadata) {
     std::lock_guard<std::mutex> lock(this->mutex);
     int from_row = partitionMetadata.get_from_row();
     int to_row = partitionMetadata.get_to_row();
@@ -41,8 +38,8 @@ Partition Dataset::read_partition(PartitionMetadata partitionMetadata) {
     return partition;
 }
 
-void Dataset::swap_endianness(unsigned short int *array, int size) {
-    for (int i = 0; i < size; i++)
+void Dataset::swap_endianness(unsigned short int *array, const int n) const {
+    for (int i = 0; i < n; i++)
         array[i] = array[i] >> 8 | array[i] << 8;
 }
 

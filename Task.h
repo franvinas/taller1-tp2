@@ -1,12 +1,11 @@
 #ifndef TASK_H
 #define TASK_H
 
-#include <string>
 #include "Operation.h"
-#include "Partition.h"
 #include "TaskAttributes.h"
 #include "PartitionMetadata.h"
 #include "Dataset.h"
+#include <string>
 
 class Task {
 private:
@@ -16,13 +15,38 @@ private:
     Operation *create_operation(const std::string &op_str) const;
 
 public:
+    /*
+     *  Constructor
+     */
     explicit Task(const std::string &task_str);
+    /*
+     *  Constructor por movimiento
+     */
     Task(Task&& other);
+    /*
+     *  Asignacion por movimiento
+     */
     Task& operator=(Task&& other);
+    /*
+     *  Aplica la operacion que corresponde sobre la siguiente particion
+     */
     bool apply(Dataset &dataset);
+    /*
+     *  Imprime el resultado de la operacion
+     */
     void print_result();
-    bool done();
+    /*
+     *  Devuelve true si ya se 'pidieron' todas las particiones
+     *  sino devuelve false
+     */
+    bool done() const;
+    /*
+     *  Devuelve la metadata de la proxima particion
+     */
     PartitionMetadata new_partition_metadata();
+    /*
+     *  Destructor
+     */
     ~Task();
 };
 

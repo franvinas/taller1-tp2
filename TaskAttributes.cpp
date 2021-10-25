@@ -1,10 +1,10 @@
+#include "TaskAttributes.h"
 #include <iostream>
-#include <string>
 #include <sstream>
-#include <algorithm>
 #include <utility>
 #include <math.h>
-#include "TaskAttributes.h"
+#include <string>
+#include <algorithm>
 
 TaskAttributes::TaskAttributes(const std::string &task_str) 
                                : start_range(0),
@@ -24,22 +24,21 @@ TaskAttributes::TaskAttributes(const std::string &task_str)
     this->total_partitions = ceil((end_range - start_range) / partition_rows);
 }
 
-TaskAttributes::TaskAttributes(const TaskAttributes &other) {
-    this->start_range = std::move(other.start_range);
-    this->end_range = std::move(other.end_range);
-    this->partition_rows = std::move(other.partition_rows);
-    this->column = std::move(other.column);
-    this->current_row = std::move(other.current_row);
-    this->op = std::move(other.op);
-    this->total_partitions = std::move(other.total_partitions);
-    this->partitions_done = std::move(other.partitions_done);
-}
+TaskAttributes::TaskAttributes(const TaskAttributes &other) 
+                    : start_range(std::move(other.start_range)),
+                        end_range(std::move(other.end_range)),
+                        partition_rows(std::move(other.partition_rows)),
+                        column(std::move(other.column)),
+                        current_row(std::move(other.current_row)),
+                        op(std::move(other.op)),
+                        total_partitions(std::move(other.total_partitions)),
+                        partitions_done(std::move(other.partitions_done)) {}
 
 std::string TaskAttributes::get_op() const {
     return this->op;
 }
 
-bool TaskAttributes::done() {
+bool TaskAttributes::done() const {
     return current_row >= end_range;
 }
 
@@ -49,7 +48,6 @@ PartitionMetadata TaskAttributes::new_partition_metadata() {
         throw -1;
     }
     
-    // std::lock_guard<std::mutex> lock(this->mutex);
     int to_row = std::min(current_row + partition_rows, end_range);
     int from_row = this->current_row;
     this->current_row += partition_rows;

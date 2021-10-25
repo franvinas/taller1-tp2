@@ -1,4 +1,8 @@
 /* ************************************************************************* *
+ * Autor: 7542/9508 - Cátedra Veiga - FIUBA
+ * ************************************************************************* */
+
+/* ************************************************************************* *
  * SPAWN - CUARTA TECNICA: template method (The Java way)
  * ************************************************************************* */
 
@@ -35,12 +39,21 @@ public:
      */
     void join();
     
+    /*
+     *  Constructor
+     */
     Thread();
-
+    /*
+     *  Constructor por movimiento
+     */
     Thread(Thread &&other);
-
+    /*
+     *  Asignacion por movimiento
+     */
     Thread& operator=(Thread&& other);
-
+    /*
+     *  Destructor
+     */
     virtual ~Thread() = default;
 };
 
