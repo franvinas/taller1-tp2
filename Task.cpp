@@ -50,9 +50,9 @@ Operation * Task::create_operation(const std::string &op_str) const {
 bool Task::apply(Dataset &dataset) {
     this->mutex.lock();
     if (this->done()) return true;
-    PartitionMetadata pMetadata = this->new_partition_metadata();
-    Partition partition(dataset.read_partition(pMetadata));
+    PartitionMetadata pMetadata = this->attributes.new_partition_metadata();
     this->mutex.unlock();
+    Partition partition(dataset.read_partition(pMetadata));
     while (!partition.end()) {
         unsigned short int n = partition.next();
         this->op->apply(n);
@@ -68,10 +68,6 @@ void Task::print_result() {
 
 bool Task::done() const {
     return this->attributes.done();
-}
-
-PartitionMetadata Task::new_partition_metadata() {
-    return this->attributes.new_partition_metadata();
 }
 
 Task::~Task() {

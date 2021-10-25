@@ -41,10 +41,6 @@ public:
      */
     bool done() const;
     /*
-     *  Devuelve la metadata de la proxima particion
-     */
-    PartitionMetadata new_partition_metadata();
-    /*
      *  Destructor
      */
     ~Task();

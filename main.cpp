@@ -32,7 +32,7 @@ int main(int argc, const char *argv[]) {
 
         for (int i = 0; i < n_workers; i++)
             workers.at(i).join();
-    } catch (...) {
+    } catch(...) {
         return 1;
     } 
     
