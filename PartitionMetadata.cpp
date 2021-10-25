@@ -1,8 +1,8 @@
 #include "PartitionMetadata.h"
 
-PartitionMetadata::PartitionMetadata(const int from_row, 
-                                     const int to_row, 
-                                     const int column) 
+PartitionMetadata::PartitionMetadata(const int &from_row, 
+                                     const int &to_row, 
+                                     const int &column) 
                                     : from_row(from_row),
                                       to_row(to_row),
                                       column(column) {}

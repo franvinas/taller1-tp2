@@ -20,10 +20,6 @@ public:
               const int &columns,
               const int &column);
     /*
-     *  Constructor por copia
-     */
-    Partition(const Partition &other);
-    /*
      *  Constructor por movimiento
      */
     Partition(Partition&& other);

@@ -24,7 +24,7 @@ TaskAttributes::TaskAttributes(const std::string &task_str)
     this->total_partitions = ceil((end_range - start_range) / partition_rows);
 }
 
-TaskAttributes::TaskAttributes(const TaskAttributes &other) 
+TaskAttributes::TaskAttributes(TaskAttributes &&other) 
                     : start_range(std::move(other.start_range)),
                         end_range(std::move(other.end_range)),
                         partition_rows(std::move(other.partition_rows)),
@@ -33,6 +33,21 @@ TaskAttributes::TaskAttributes(const TaskAttributes &other)
                         op(std::move(other.op)),
                         total_partitions(std::move(other.total_partitions)),
                         partitions_done(std::move(other.partitions_done)) {}
+
+TaskAttributes& TaskAttributes::operator=(TaskAttributes&& other) {
+    if (this == &other)
+        return *this;
+    this->start_range = std::move(other.start_range);
+    this->end_range = std::move(other.end_range);
+    this->partition_rows = std::move(other.partition_rows);
+    this->column = std::move(other.column);
+    this->current_row = std::move(other.current_row);
+    this->op = std::move(other.op);
+    this->total_partitions = std::move(other.total_partitions);
+    this->partitions_done = std::move(other.partitions_done);
+
+    return *this;
+}
 
 std::string TaskAttributes::get_op() const {
     return this->op;

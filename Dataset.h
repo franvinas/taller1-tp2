@@ -12,7 +12,7 @@ private:
     std::ifstream dataset;
     const int columns;
     std::mutex mutex;
-    void swap_endianness(unsigned short int *array, const int n) const;
+    void swap_endianness(unsigned short int *array, const int &n) const;
 
 public:
     /*

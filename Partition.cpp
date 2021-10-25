@@ -11,13 +11,6 @@ Partition::Partition(const unsigned short int *data,
         this->data.push_back(data[i]);
 }
 
-Partition::Partition(Partition&& other) 
-                    : data(std::move(other.data)),
-                    rows(other.rows), 
-                    columns(other.columns),
-                    current_row(other.current_row),
-                    column(other.column) {}
-
 Partition& Partition::operator=(Partition&& other) {
     if (this == &other)
         return *this;

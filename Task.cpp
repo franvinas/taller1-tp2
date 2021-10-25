@@ -51,7 +51,7 @@ bool Task::apply(Dataset &dataset) {
     this->mutex.lock();
     if (this->done()) return true;
     PartitionMetadata pMetadata = this->new_partition_metadata();
-    Partition partition = std::move(dataset.read_partition(pMetadata));
+    Partition partition(dataset.read_partition(pMetadata));
     this->mutex.unlock();
     while (!partition.end()) {
         unsigned short int n = partition.next();

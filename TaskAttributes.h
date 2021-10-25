@@ -21,9 +21,13 @@ public:
      */
     explicit TaskAttributes(const std::string &task_str);
     /*
-     *  Constructor por copia
+     *  Constructor por movimiento
      */
-    TaskAttributes(const TaskAttributes &other);
+    TaskAttributes(TaskAttributes &&other);
+    /*
+     *  Asignacion por movimiento
+     */
+    TaskAttributes& operator=(TaskAttributes&& other);
     /*
      *  Devuelve un string con el nombre de la operacion
      */

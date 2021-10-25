@@ -11,9 +11,9 @@ public:
     /*
      *  Constructor
      */
-    PartitionMetadata(const int from_row, 
-                      const int to_row, 
-                      const int column);
+    PartitionMetadata(const int &from_row, 
+                      const int &to_row, 
+                      const int &column);
     /*
      *  Devuelve numero de la fila inicial de la particion
      */

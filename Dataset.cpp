@@ -38,7 +38,7 @@ Partition Dataset::read_partition(const PartitionMetadata &partitionMetadata) {
     return partition;
 }
 
-void Dataset::swap_endianness(unsigned short int *array, const int n) const {
+void Dataset::swap_endianness(unsigned short int *array, const int &n) const {
     for (int i = 0; i < n; i++)
         array[i] = array[i] >> 8 | array[i] << 8;
 }
