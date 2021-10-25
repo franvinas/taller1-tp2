@@ -13,6 +13,14 @@ Link al repositorio: https://github.com/franvinas/taller1-tp2
 
 El tabajo práctico consiste en tomar un dataset que no puede entrar en memoria, partirlo en múltiples sub-datasets más chicos que sí pueden entrar en memoria, operar sobre cada uno de ellos y combinar los resultados parciales para obtener un resultado final. Las operaciones posibles son: `sum`, `mean`, `min` y `max`. Cada operación se realiza sobre los elementos de una única columna entre las filas `start_range` y `end_range`.
 
+El programa se ejecuta con el siguiente comando:
+
+~~~
+./tp <dataset> <columns> <workers>
+~~~
+
+Donde <dataset> es el nombre del archivo binario con los valores a operar, <columns> es el número de columnas que tiene el dataset y <workers> la cantidad de hilos adicionales para procesar en paralelo.
+
 ## Descripción de clases
 
 ### Dataset
@@ -52,3 +60,15 @@ Esta es una clase abstracta. Toda clase que herede de `Thread` debe implementar 
 ### Worker
 
 Esta clase hereda de `Thread`. La clase `Worker` implementa la función `run()`. Esta función lo único que hace es pedir por la siguiente tarea y llamar al método `apply` de la clase `Task`. Esto se hace dentro de un ciclo mientras que no se hayan completado todas las tareas. Notar que el método `apply` opera sobre una única partición y luego retorna, entonces por cada iteración dentro del ciclo se opera sobre una sola partición. Esto permite que haya varios hilos trabajando sobre una única tarea pero en particiones diferentes. Cada instancia de `Worker` tiene una referencia a la cola de tareas (`TaskQueue`) y al dataset (`Dataset`); es necesario que sean referencias porque todas las instancias de `Worker` deben poder acceder a estos objetos.
+
+## Diagramas
+
+Dentro de la clase `Task`, el método de mayor complejidad es `apply()`. En el siguiente diagrama se puede observar que lo primero que se hace dentro del método es obtener la metadata de la siguiente partición sobre la cual operar. Una vez que se tiene la metadata se le puede pedir a `Dataset` la instancia de `Partition` que corresponde. Con la partición ya se puede realizar un ciclo while donde se procesan todas las columnas de la misma. La lógica dentro del ciclo se puede ver en la segunda imagen. El objetivo del ciclo es que mientras haya filas por procesar, se pida por el siguiente valor (es decir el valor que se encuentra en la siguiente fila y en la columna correspondiente) y luego se realice la operación con el valor obtenido.
+
+![diagrama task_apply](imgs/task_apply.png)
+
+![diagrama task_apply_while](imgs/task_apply_while.png)
+  
+## Consideraciones
+  
+- Primero se leen todas las tareas a realizar de entrada estandar y luego imprime los resultados de las tareas en el orden que fueron leídas.
