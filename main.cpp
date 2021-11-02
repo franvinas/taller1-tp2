@@ -30,6 +30,8 @@ int main(int argc, const char *argv[]) {
         for (int i = 0; i < n_workers; i++)
             workers.at(i).start();
 
+        taskQueue.read_tasks();
+
         for (int i = 0; i < n_workers; i++)
             workers.at(i).join();
     } catch(...) {

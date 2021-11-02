@@ -4,12 +4,18 @@
 #include "Task.h"
 #include <mutex>
 #include <deque>
+#include <condition_variable>
 
 class TaskQueue {
 private:
     std::deque<Task> task_queue;
     size_t current_task;
+    bool closed;
+    std::condition_variable cv;
     std::mutex mutex;
+    bool empty();
+    void close();
+
 public:
     /*
      *  Constructor
@@ -24,7 +30,9 @@ public:
      *  sus particiones.
      *  Sino devuelve false.
      */
-    bool empty();
+    bool done();
+
+    void read_tasks();
 };
 
 #endif

@@ -5,7 +5,7 @@ Worker::Worker(TaskQueue &taskQueue, Dataset &dataset)
                 dataset(dataset) {}
 
 void Worker::run() {
-    while (!taskQueue.empty()) {
+    while (!taskQueue.done()) {
         Task &task = taskQueue.front();
         
         if (task.apply(dataset)) {
