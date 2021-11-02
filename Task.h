@@ -33,7 +33,7 @@ public:
     /*
      *  Imprime el resultado de la operacion
      */
-    void print_result();
+    std::string get_result();
     /*
      *  Devuelve true si ya se 'pidieron' todas las particiones
      *  sino devuelve false

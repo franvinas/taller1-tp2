@@ -7,7 +7,7 @@
 class Operation {
 protected:
     unsigned short int partial_result;
-    bool result_printed;
+    bool result_returned;
     std::mutex mutex;
 public:
     /*
@@ -21,7 +21,7 @@ public:
     /*
      *  Imprime el resultado (solo si todavia no fue impreso)
      */
-    virtual void print_result();
+    virtual std::string get_result();
     /*
      *  Destructor
      */
@@ -41,7 +41,7 @@ private:
 public:
     Mean();
     virtual void apply(const unsigned short int val) override;
-    virtual void print_result() override;
+    virtual std::string get_result() override;
 };
 
 class Min: public Operation {

@@ -4,6 +4,7 @@
 #include "Thread.h"
 #include "TaskQueue.h"
 #include "Dataset.h"
+#include "ResultsMonitor.h"
 
 /*
  *  Worker hereda de Thread e implementa run().
@@ -14,7 +15,8 @@
 class Worker: public Thread {
 private:
     TaskQueue &taskQueue;
-    Dataset &dataset;    
+    Dataset &dataset;
+    ResultsMonitor &results;
     
 protected:
     /*
@@ -29,7 +31,7 @@ public:
     /*
      *  Constructor
      */
-    Worker(TaskQueue &taskQueue, Dataset &dataset);
+    Worker(TaskQueue &taskQueue, Dataset &dataset, ResultsMonitor &results);
 };
 
 #endif

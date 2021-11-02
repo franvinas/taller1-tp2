@@ -1,15 +1,18 @@
 #include "Worker.h"
 
-Worker::Worker(TaskQueue &taskQueue, Dataset &dataset) 
+Worker::Worker(TaskQueue &taskQueue, Dataset &dataset, ResultsMonitor &results) 
                 : taskQueue(taskQueue),
-                dataset(dataset) {}
+                dataset(dataset),
+                results(results) {}
 
 void Worker::run() {
     while (!taskQueue.done()) {
         Task &task = taskQueue.front();
         
         if (task.apply(dataset)) {
-            task.print_result(); 
+            std::string result = task.get_result();
+            if (!result.empty())
+                results.add_result(result);
         } 
     }
 }

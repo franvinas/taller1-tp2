@@ -5,6 +5,7 @@
 #include "Dataset.h"
 #include "TaskQueue.h"
 #include "Worker.h"
+#include "ResultsMonitor.h"
 
 int main(int argc, const char *argv[]) {
     if (argc != 4) {
@@ -23,9 +24,10 @@ int main(int argc, const char *argv[]) {
         TaskQueue taskQueue;
         Dataset dataset(file_name, columns);
         std::vector<Worker> workers;
+        ResultsMonitor results;
 
         for (int i = 0; i < n_workers; i++)
-            workers.push_back(std::move(Worker(taskQueue, dataset)));
+            workers.push_back(std::move(Worker(taskQueue, dataset, results)));
 
         for (int i = 0; i < n_workers; i++)
             workers.at(i).start();
@@ -34,6 +36,7 @@ int main(int argc, const char *argv[]) {
 
         for (int i = 0; i < n_workers; i++)
             workers.at(i).join();
+        results.print_results();
     } catch(...) {
         return 1;
     } 

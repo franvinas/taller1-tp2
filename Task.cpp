@@ -59,9 +59,8 @@ bool Task::apply(Dataset &dataset) {
     return this->done();
 }
 
-void Task::print_result() {
-    if (this->done())
-        this->op->print_result();
+std::string Task::get_result() {
+    return this->op->get_result();
 }
 
 bool Task::done() const {

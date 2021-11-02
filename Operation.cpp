@@ -1,15 +1,17 @@
 #include "Operation.h"
-#include <iostream>
+#include <string>
 #include <algorithm>
 
-Operation::Operation() : partial_result(0), result_printed(false) {}
+Operation::Operation() : partial_result(0), result_returned(false) {}
 
-void Operation::print_result() {
+std::string Operation::get_result() {
     std::lock_guard<std::mutex> lock(this->mutex);
-    if (!this->result_printed) {
-        std::cout << this->partial_result << "\n";
-        this->result_printed = true;
-    }
+    std::string result;
+    result.clear();
+    if (this->result_returned) return result;
+    this->result_returned = true;
+    result = std::to_string(this->partial_result);
+    return result;
 }
 
 Operation::~Operation() {}
@@ -33,12 +35,15 @@ void Mean::apply(const unsigned short int val) {
     this->n += 1;
 }
 
-void Mean::print_result() {
+std::string Mean::get_result() {
     std::lock_guard<std::mutex> lock(this->mutex);
-    if (!this->result_printed) {
-        std::cout << this->sum << "/" << this->n << "\n";
-        this->result_printed = true;
-    }
+    std::string result;
+    result.clear();
+    if (this->result_returned) return result;
+
+    this->result_returned = true;
+    result = std::to_string(this->sum) + "/" + std::to_string(this->n);
+    return result;
 }
 
 Min::Min() {
