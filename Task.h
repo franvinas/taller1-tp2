@@ -3,7 +3,6 @@
 
 #include "Operation.h"
 #include "TaskAttributes.h"
-#include "PartitionMetadata.h"
 #include "Dataset.h"
 #include <string>
 

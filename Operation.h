@@ -1,6 +1,7 @@
 #ifndef OPERATION_H
 #define OPERATION_H
 
+#include <string>
 #include <mutex>
 // las operaciones posibles son sum, mean, min y max.
 

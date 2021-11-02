@@ -1,4 +1,5 @@
 #include "Worker.h"
+#include <string>
 
 Worker::Worker(TaskQueue &taskQueue, Dataset &dataset, ResultsMonitor &results) 
                 : taskQueue(taskQueue),

@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Task.h"
 #include "Dataset.h"
 #include "TaskQueue.h"
 #include "Worker.h"
@@ -36,6 +35,7 @@ int main(int argc, const char *argv[]) {
 
         for (int i = 0; i < n_workers; i++)
             workers.at(i).join();
+        
         results.print_results();
     } catch(...) {
         return 1;
