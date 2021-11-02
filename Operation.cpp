@@ -1,12 +1,13 @@
 #include "Operation.h"
 #include <iostream>
+#include <algorithm>
 
-Operation::Operation() : a(0), result_printed(false) {}
+Operation::Operation() : partial_result(0), result_printed(false) {}
 
 void Operation::print_result() {
     std::lock_guard<std::mutex> lock(this->mutex);
     if (!this->result_printed) {
-        std::cout << this->a << "\n";
+        std::cout << this->partial_result << "\n";
         this->result_printed = true;
     }
 }
@@ -14,21 +15,21 @@ void Operation::print_result() {
 Operation::~Operation() {}
 
 Sum::Sum() {
-    this->a = 0;
+    this->partial_result = 0;
 }
 
-void Sum::apply(const unsigned short int &b) {
+void Sum::apply(const unsigned short int val) {
     std::lock_guard<std::mutex> lock(this->mutex);
-    this->a += b;
+    this->partial_result += val;
 }
 
 Mean::Mean(): sum(0), n(0) {
-    this->a = 0;
+    this->partial_result = 0;
 }
 
-void Mean::apply(const unsigned short int &b) {
+void Mean::apply(const unsigned short int val) {
     std::lock_guard<std::mutex> lock(this->mutex);
-    this->sum += b;
+    this->sum += val;
     this->n += 1;
 }
 
@@ -41,19 +42,19 @@ void Mean::print_result() {
 }
 
 Min::Min() {
-    this->a = -1;
+    this->partial_result = -1;
 }
 
-void Min::apply(const unsigned short int &b) {
+void Min::apply(const unsigned short int val) {
     std::lock_guard<std::mutex> lock(this->mutex);
-    this->a = this->a < b ? this->a : b;
+    this->partial_result = std::min(this->partial_result, val);
 }
 
 Max::Max() {
-    this->a = 0;
+    this->partial_result = 0;
 }
 
-void Max::apply(const unsigned short int &b) {
+void Max::apply(const unsigned short int val) {
     std::lock_guard<std::mutex> lock(mutex);
-    this->a = this->a > b ? this->a : b;
+    this->partial_result = std::max(this->partial_result, val);
 }

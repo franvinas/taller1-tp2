@@ -11,7 +11,6 @@ class Task {
 private:
     TaskAttributes attributes;
     Operation *op;
-    std::mutex mutex;
     Operation *create_operation(const std::string &op_str) const;
 
 public:

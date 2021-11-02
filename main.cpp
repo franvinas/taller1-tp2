@@ -25,7 +25,7 @@ int main(int argc, const char *argv[]) {
         std::vector<Worker> workers;
 
         for (int i = 0; i < n_workers; i++)
-            workers.push_back(Worker(taskQueue, dataset));
+            workers.push_back(std::move(Worker(taskQueue, dataset)));
 
         for (int i = 0; i < n_workers; i++)
             workers.at(i).start();

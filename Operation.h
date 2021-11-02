@@ -6,7 +6,7 @@
 
 class Operation {
 protected:
-    unsigned short int a;
+    unsigned short int partial_result;
     bool result_printed;
     std::mutex mutex;
 public:
@@ -17,7 +17,7 @@ public:
     /*
      *  Aplica la operacion que corresponde usando el valor de b
      */
-    virtual void apply(const unsigned short int &b) = 0;
+    virtual void apply(const unsigned short int val) = 0;
     /*
      *  Imprime el resultado (solo si todavia no fue impreso)
      */
@@ -31,7 +31,7 @@ public:
 class Sum: public Operation {
 public:
     Sum();
-    virtual void apply(const unsigned short int &b) override;
+    virtual void apply(const unsigned short int val) override;
 };
 
 class Mean: public Operation {
@@ -40,20 +40,20 @@ private:
     unsigned short int n;
 public:
     Mean();
-    virtual void apply(const unsigned short int &b) override;
+    virtual void apply(const unsigned short int val) override;
     virtual void print_result() override;
 };
 
 class Min: public Operation {
 public:
     Min();
-    virtual void apply(const unsigned short int &b) override;
+    virtual void apply(const unsigned short int val) override;
 };
 
 class Max: public Operation {
 public:
     Max();
-    virtual void apply(const unsigned short int &b) override;
+    virtual void apply(const unsigned short int val) override;
 };
 
 #endif

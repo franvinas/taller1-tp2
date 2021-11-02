@@ -48,10 +48,8 @@ Operation * Task::create_operation(const std::string &op_str) const {
 }
 
 bool Task::apply(Dataset &dataset) {
-    this->mutex.lock();
-    if (this->done()) return true;
     PartitionMetadata pMetadata = this->attributes.new_partition_metadata();
-    this->mutex.unlock();
+    if (pMetadata.is_empty()) return true;
     Partition partition(dataset.read_partition(pMetadata));
     while (!partition.end()) {
         unsigned short int n = partition.next();

@@ -6,14 +6,19 @@ private:
     int from_row;
     int to_row;
     int column;
+    bool empty;
 
 public:
     /*
      *  Constructor
      */
-    PartitionMetadata(const int &from_row, 
-                      const int &to_row, 
-                      const int &column);
+    PartitionMetadata();
+    /*
+     *  Constructor
+     */
+    PartitionMetadata(const int from_row, 
+                      const int to_row, 
+                      const int column);
     /*
      *  Devuelve numero de la fila inicial de la particion
      */
@@ -26,6 +31,10 @@ public:
      *  Devuelve numero de la columna donde se aplican las operaciones
      */
     int get_column() const;
+    /*
+     *  Devuelve true si es una particion vacia, false si no
+     */
+    bool is_empty() const;
 };
 
 #endif

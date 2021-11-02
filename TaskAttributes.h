@@ -3,6 +3,7 @@
 
 #include "PartitionMetadata.h"
 #include <string>
+#include <mutex>
 
 class TaskAttributes {
 private:
@@ -14,6 +15,7 @@ private:
     std::string op;
     int total_partitions;
     int partitions_done;
+    std::mutex mutex;
 
 public:
     /*

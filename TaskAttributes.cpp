@@ -58,6 +58,7 @@ bool TaskAttributes::done() const {
 }
 
 PartitionMetadata TaskAttributes::new_partition_metadata() {
+    std::lock_guard<std::mutex> lock(this->mutex);
     if (current_row >= end_range) {
         std::cerr << "No hay mas particiones\n";
         throw -1;

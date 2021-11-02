@@ -15,10 +15,10 @@ public:
     /*
      *  Constructor
      */
-    Partition(const unsigned short int *data,
-              const int &rows,    
-              const int &columns,
-              const int &column);
+    Partition(std::vector<unsigned short int> &data,
+              const int rows,    
+              const int columns,
+              const int column);
     /*
      *  Constructor por movimiento
      */

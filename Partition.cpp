@@ -1,14 +1,22 @@
 #include "Partition.h"
 #include <utility>
+#include <vector>
 
-Partition::Partition(const unsigned short int *data, 
-                     const int &rows, const int &columns, const int &column)
-                    : rows(rows), 
+Partition::Partition(std::vector<unsigned short int> &data, 
+                     const int rows, const int columns, const int column)
+                    : data(std::move(data)),
+                      rows(rows), 
                       columns(columns), 
                       current_row(0), 
                       column(column) {
-    for (int i = 0; i < rows * columns; i++)
-        this->data.push_back(data[i]);
+}
+
+Partition::Partition(Partition&& other) {
+    this->data = std::move(other.data);
+    this->rows = other.rows;
+    this->columns = other.columns;
+    this->current_row = other.current_row;
+    this->column = other.column;
 }
 
 Partition& Partition::operator=(Partition&& other) {
@@ -16,7 +24,6 @@ Partition& Partition::operator=(Partition&& other) {
         return *this;
 
     this->data = std::move(other.data);
-    this->data = other.data;
     this->rows = other.rows;
     this->columns = other.columns;
     this->current_row = other.current_row;
