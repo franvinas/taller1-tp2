@@ -5,7 +5,13 @@
 
 class Max: public Operation {
 public:
+    /*
+     *  Constructor
+     */
     Max();
+    /*
+     *  Guarda en partial_result el maximo entre el resultado parcial y val
+     */
     virtual void apply(const unsigned short int val) override;
 };
 

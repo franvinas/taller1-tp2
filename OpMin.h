@@ -5,6 +5,9 @@
 
 class Min: public Operation {
 public:
+    /*
+     *  Constructor
+     */
     Min();
     virtual void apply(const unsigned short int val) override;
 };

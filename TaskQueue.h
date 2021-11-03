@@ -31,7 +31,10 @@ public:
      *  Sino devuelve false.
      */
     bool done();
-
+    /*
+     *  Lee de entrada estandar las tareas a realizar y las encola como
+     *   instancias de Task en task_queue.
+     */
     void read_tasks();
 };
 
