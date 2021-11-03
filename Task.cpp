@@ -1,5 +1,9 @@
 #include "Task.h"
 #include "Partition.h"
+#include "OpSum.h"
+#include "OpMean.h"
+#include "OpMin.h"
+#include "OpMax.h"
 #include <string>
 #include <iostream>
 #include <utility>

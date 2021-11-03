@@ -3,7 +3,6 @@
 
 #include <string>
 #include <mutex>
-// las operaciones posibles son sum, mean, min y max.
 
 class Operation {
 protected:
@@ -27,34 +26,6 @@ public:
      *  Destructor
      */
     virtual ~Operation();
-};
-
-class Sum: public Operation {
-public:
-    Sum();
-    virtual void apply(const unsigned short int val) override;
-};
-
-class Mean: public Operation {
-private:
-    unsigned short int sum;
-    unsigned short int n;
-public:
-    Mean();
-    virtual void apply(const unsigned short int val) override;
-    virtual std::string get_result() override;
-};
-
-class Min: public Operation {
-public:
-    Min();
-    virtual void apply(const unsigned short int val) override;
-};
-
-class Max: public Operation {
-public:
-    Max();
-    virtual void apply(const unsigned short int val) override;
 };
 
 #endif
