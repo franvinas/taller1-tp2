@@ -1,9 +1,8 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include "Dataset.h"
 #include "TaskQueue.h"
-#include "Worker.h"
+#include "WorkersHub.h"
 #include "ResultsMonitor.h"
 
 int main(int argc, const char *argv[]) {
@@ -22,21 +21,14 @@ int main(int argc, const char *argv[]) {
     try {
         TaskQueue taskQueue;
         Dataset dataset(file_name, columns);
-        std::vector<Worker> workers;
         ResultsMonitor results;
 
-        for (int i = 0; i < n_workers; i++)
-            workers.push_back(std::move(Worker(taskQueue, dataset, results)));
+        WorkersHub workers(n_workers, taskQueue, dataset, results);
 
-        for (int i = 0; i < n_workers; i++)
-            workers.at(i).start();
-
+        workers.start_all();
         taskQueue.read_tasks();
-
-        for (int i = 0; i < n_workers; i++)
-            workers.at(i).join();
-        
-        results.print_results();
+        workers.join_all();
+        results.print_results();        
     } catch(...) {
         return 1;
     } 
