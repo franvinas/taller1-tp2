@@ -15,7 +15,7 @@ public:
      */
     explicit Operation(unsigned short int partial_result);
     /*
-     *  Aplica la operacion que corresponde usando el valor de b
+     *  Aplica la operacion que corresponde entre el resultado parcial y val
      */
     virtual void apply(const unsigned short int val) = 0;
     /*

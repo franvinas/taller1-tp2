@@ -11,7 +11,13 @@ private:
     std::mutex mutex;
 
 public:
+    /*
+     *  Guarda el valor que recibe por parametro
+     */
     void add_result(std::string &result);
+    /*
+     *  Imprime los resultados en el orden que fueron recibidos
+     */
     void print_results();
 };
 
