@@ -1,9 +1,7 @@
 #include "OpMax.h"
 #include <algorithm>
 
-Max::Max() {
-    this->partial_result = 0;
-}
+Max::Max() : Operation(0) {}
 
 void Max::apply(const unsigned short int val) {
     std::lock_guard<std::mutex> lock(mutex);

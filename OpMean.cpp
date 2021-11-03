@@ -1,9 +1,7 @@
 #include "OpMean.h"
 #include <string>
 
-Mean::Mean(): sum(0), n(0) {
-    this->partial_result = 0;
-}
+Mean::Mean() : Operation(0), sum(0), n(0) {}
 
 void Mean::apply(const unsigned short int val) {
     std::lock_guard<std::mutex> lock(this->mutex);

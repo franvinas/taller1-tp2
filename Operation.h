@@ -13,7 +13,7 @@ public:
     /*
      *  Constructor
      */
-    Operation();
+    explicit Operation(unsigned short int partial_result);
     /*
      *  Aplica la operacion que corresponde usando el valor de b
      */

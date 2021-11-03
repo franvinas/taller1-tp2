@@ -2,7 +2,9 @@
 #include <string>
 #include <algorithm>
 
-Operation::Operation() : partial_result(0), result_returned(false) {}
+Operation::Operation(unsigned short int partial_result) 
+                    : partial_result(partial_result),
+                      result_returned(false) {}
 
 std::string Operation::get_result() {
     std::lock_guard<std::mutex> lock(this->mutex);
