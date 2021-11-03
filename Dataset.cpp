@@ -15,22 +15,14 @@ Dataset::Dataset(const std::string &dataset_name,
 }
 
 Partition Dataset::read_partition(const PartitionMetadata &partitionMetadata) {
-    std::lock_guard<std::mutex> lock(this->mutex);
     int from_row = partitionMetadata.get_from_row();
     int to_row = partitionMetadata.get_to_row();
     int column = partitionMetadata.get_column();
-    dataset.seekg(from_row * columns * sizeof(unsigned short int));
     int partition_size = columns * (to_row - from_row);
+    int start = from_row * columns;
  
     std::vector<unsigned short int> partition_data;
-    unsigned short int val;
-    int elements_read = 0;
-
-    while (this->dataset.read((char *) &val, sizeof(unsigned short int))) {
-        elements_read++;
-        partition_data.push_back(ntohs(val));
-        if (elements_read >= partition_size) break;
-    }
+    int elements_read = this->read_data(partition_data, start, partition_size);
    
     int partition_real_rows = elements_read / columns;
     Partition partition(partition_data,
@@ -39,6 +31,22 @@ Partition Dataset::read_partition(const PartitionMetadata &partitionMetadata) {
                         column);
 
     return partition;
+}
+
+int Dataset::read_data(std::vector<unsigned short int> &partition_data, 
+                       int start,
+                       int partition_size) {
+    unsigned short int val;
+    int elements_read = 0;
+    partition_data.clear();
+    std::lock_guard<std::mutex> lock(this->mutex);
+    dataset.seekg(start * sizeof(unsigned short int));
+    while (this->dataset.read((char *) &val, sizeof(unsigned short int))) {
+        elements_read++;
+        partition_data.push_back(ntohs(val));
+        if (elements_read >= partition_size) break;
+    }
+    return elements_read;
 }
 
 Dataset::~Dataset() {

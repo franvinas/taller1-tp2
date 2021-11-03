@@ -3,6 +3,7 @@
 
 #include "PartitionMetadata.h"
 #include "Partition.h"
+#include <vector>
 #include <string>
 #include <fstream>
 #include <mutex>
@@ -12,6 +13,9 @@ private:
     std::ifstream dataset;
     const int columns;
     std::mutex mutex;
+    int read_data(std::vector<unsigned short int> &partition_data,
+                  int start, 
+                  int partition_size);
 
 public:
     /*
