@@ -10,7 +10,7 @@ Dataset::Dataset(const std::string &dataset_name,
                  columns(columns) {
     if (!this->dataset.is_open()) {
         std::cerr << "Error al abrir el archivo dataset\n";
-        throw -1;
+        throw std::runtime_error("Error al abrir el archivo dataset");
     }
 }
 

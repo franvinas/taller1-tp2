@@ -61,7 +61,7 @@ PartitionMetadata TaskAttributes::new_partition_metadata() {
     std::lock_guard<std::mutex> lock(this->mutex);
     if (current_row >= end_range) {
         std::cerr << "No hay mas particiones\n";
-        throw -1;
+        throw std::runtime_error("No hay mas particiones");
     }
     
     int to_row = std::min(current_row + partition_rows, end_range);

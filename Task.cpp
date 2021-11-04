@@ -48,7 +48,7 @@ Operation * Task::create_operation(const std::string &op_str) const {
     if (op_str == "max")
         return new Max();
 
-    throw -1;
+    throw std::runtime_error("Comando desconocido");
 }
 
 bool Task::apply(Dataset &dataset) {
