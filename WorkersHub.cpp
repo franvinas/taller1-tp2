@@ -2,6 +2,10 @@
 #include "Worker.h"
 #include <utility>
 
+/***********************
+    Metodos publicos
+************************/
+
 WorkersHub::WorkersHub(int n_workers, 
                        TaskQueue &taskQueue,
                        Dataset &dataset,

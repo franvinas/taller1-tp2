@@ -1,6 +1,10 @@
 #include "OpMin.h"
 #include <algorithm>
 
+/***********************
+    Metodos publicos
+************************/
+
 Min::Min() : Operation(-1) {}
 
 void Min::apply(const unsigned short int val) {

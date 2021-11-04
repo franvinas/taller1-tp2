@@ -8,6 +8,30 @@
 #include <iostream>
 #include <utility>
 
+/***********************
+    Metodos publicos
+************************/
+
+Operation * Task::create_operation(const std::string &op_str) const {
+    if (op_str == "sum")
+        return new Sum();
+
+    if (op_str == "mean")
+        return new Mean();
+
+    if (op_str == "min")
+        return new Min();
+
+    if (op_str == "max")
+        return new Max();
+
+    throw std::runtime_error("Comando desconocido");
+}
+
+/***********************
+    Metodos publicos
+************************/
+
 Task::Task(const std::string &task_str)
             : attributes(task_str) {
     try {
@@ -32,23 +56,6 @@ Task& Task::operator=(Task&& other) {
     other.op = nullptr;
 
     return *this;
-}
-
-
-Operation * Task::create_operation(const std::string &op_str) const {
-    if (op_str == "sum")
-        return new Sum();
-
-    if (op_str == "mean")
-        return new Mean();
-
-    if (op_str == "min")
-        return new Min();
-
-    if (op_str == "max")
-        return new Max();
-
-    throw std::runtime_error("Comando desconocido");
 }
 
 bool Task::apply(Dataset &dataset) {

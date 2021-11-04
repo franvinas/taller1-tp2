@@ -3,6 +3,10 @@
 #include <string>
 #include <utility>
 
+/***********************
+    Metodos publicos
+************************/
+
 void ResultsMonitor::add_result(std::string &result) {
     std::lock_guard<std::mutex> lock(this->mutex);
     this->results.push_back(std::move(result));

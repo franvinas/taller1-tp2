@@ -2,6 +2,10 @@
 #include <utility>
 #include <vector>
 
+/***********************
+    Metodos publicos
+************************/
+
 Partition::Partition(std::vector<unsigned short int> &data, 
                      const int rows, const int columns, const int column)
                     : data(std::move(data)),

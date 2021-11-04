@@ -6,6 +6,10 @@
 #include <string>
 #include <algorithm>
 
+/***********************
+    Metodos publicos
+************************/
+
 TaskAttributes::TaskAttributes(const std::string &task_str) 
                                : start_range(0),
                                  end_range(0),

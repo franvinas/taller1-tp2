@@ -4,6 +4,30 @@
 #include <vector>
 #include <arpa/inet.h>
 
+/***********************
+    Metodos privados
+************************/
+
+int Dataset::read_data(std::vector<unsigned short int> &partition_data, 
+                       int start,
+                       int partition_size) {
+    unsigned short int val;
+    int elements_read = 0;
+    partition_data.clear();
+    std::lock_guard<std::mutex> lock(this->mutex);
+    dataset.seekg(start * sizeof(unsigned short int));
+    while (this->dataset.read((char *) &val, sizeof(unsigned short int))) {
+        elements_read++;
+        partition_data.push_back(ntohs(val));
+        if (elements_read >= partition_size) break;
+    }
+    return elements_read;
+}
+
+/***********************
+    Metodos publicos
+************************/
+
 Dataset::Dataset(const std::string &dataset_name, 
                  const int columns) 
                  : dataset(dataset_name, std::ios::in | std::ios::binary),
@@ -31,22 +55,6 @@ Partition Dataset::read_partition(const PartitionMetadata &partitionMetadata) {
                         column);
 
     return partition;
-}
-
-int Dataset::read_data(std::vector<unsigned short int> &partition_data, 
-                       int start,
-                       int partition_size) {
-    unsigned short int val;
-    int elements_read = 0;
-    partition_data.clear();
-    std::lock_guard<std::mutex> lock(this->mutex);
-    dataset.seekg(start * sizeof(unsigned short int));
-    while (this->dataset.read((char *) &val, sizeof(unsigned short int))) {
-        elements_read++;
-        partition_data.push_back(ntohs(val));
-        if (elements_read >= partition_size) break;
-    }
-    return elements_read;
 }
 
 Dataset::~Dataset() {

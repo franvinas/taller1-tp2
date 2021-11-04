@@ -2,6 +2,10 @@
 #include <string>
 #include <algorithm>
 
+/***********************
+    Metodos publicos
+************************/
+
 Operation::Operation(unsigned short int partial_result) 
                     : partial_result(partial_result),
                       result_returned(false) {}

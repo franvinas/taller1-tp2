@@ -1,5 +1,9 @@
 #include "PartitionMetadata.h"
 
+/***********************
+    Metodos publicos
+************************/
+
 PartitionMetadata::PartitionMetadata(const int from_row, 
                                      const int to_row, 
                                      const int column) 

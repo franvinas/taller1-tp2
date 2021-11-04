@@ -1,6 +1,10 @@
 #include "Worker.h"
 #include <string>
 
+/***********************
+    Metodos publicos
+************************/
+
 Worker::Worker(TaskQueue &taskQueue, Dataset &dataset, ResultsMonitor &results) 
                 : taskQueue(taskQueue),
                   dataset(dataset),
@@ -9,6 +13,11 @@ Worker::Worker(TaskQueue &taskQueue, Dataset &dataset, ResultsMonitor &results)
 Worker::Worker(Worker&& other) : taskQueue(other.taskQueue),
                                  dataset(other.dataset),
                                  results(other.results) {}
+
+
+/***********************
+    Metodos protegidos
+************************/
 
 void Worker::run() {
     while (!taskQueue.done()) {

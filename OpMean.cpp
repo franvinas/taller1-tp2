@@ -1,6 +1,10 @@
 #include "OpMean.h"
 #include <string>
 
+/***********************
+    Metodos publicos
+************************/
+
 Mean::Mean() : Operation(0), sum(0), n(0) {}
 
 void Mean::apply(const unsigned short int val) {
