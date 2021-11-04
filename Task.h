@@ -18,6 +18,14 @@ public:
      */
     explicit Task(const std::string &task_str);
     /*
+     *  Constructor por copia
+     */
+    Task(const Task&) = delete;
+    /*
+     *  Asignacion por copia
+     */
+    Task& operator=(const Task&) = delete;
+    /*
      *  Constructor por movimiento
      */
     Task(Task&& other);
@@ -37,7 +45,7 @@ public:
      *  Devuelve true si ya se 'pidieron' todas las particiones
      *  sino devuelve false
      */
-    bool done() const;
+    bool done();
     /*
      *  Destructor
      */

@@ -67,7 +67,7 @@ std::string Task::get_result() {
     return this->op->get_result();
 }
 
-bool Task::done() const {
+bool Task::done() {
     return this->attributes.done();
 }
 

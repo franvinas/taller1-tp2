@@ -23,6 +23,14 @@ public:
      */
     explicit TaskAttributes(const std::string &task_str);
     /*
+     *  Constructor por copia
+     */
+    TaskAttributes(const TaskAttributes&) = delete;
+    /*
+     *  Asignacion por copia
+     */
+    TaskAttributes& operator=(const TaskAttributes&) = delete;
+    /*
      *  Constructor por movimiento
      */
     TaskAttributes(TaskAttributes &&other);

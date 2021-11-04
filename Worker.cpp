@@ -3,8 +3,12 @@
 
 Worker::Worker(TaskQueue &taskQueue, Dataset &dataset, ResultsMonitor &results) 
                 : taskQueue(taskQueue),
-                dataset(dataset),
-                results(results) {}
+                  dataset(dataset),
+                  results(results) {}
+
+Worker::Worker(Worker&& other) : taskQueue(other.taskQueue),
+                                 dataset(other.dataset),
+                                 results(other.results) {}
 
 void Worker::run() {
     while (!taskQueue.done()) {

@@ -32,6 +32,18 @@ public:
      *  Constructor
      */
     Worker(TaskQueue &taskQueue, Dataset &dataset, ResultsMonitor &results);
+    /*
+     *  Constructor por copia
+     */
+    Worker(const Worker&) = delete;
+    /*
+     *  Asignacion por copia
+     */
+    Worker& operator=(const Worker&) = delete;
+    /*
+     *  Constructor por movimiento
+     */
+    Worker(Worker&& other);
 };
 
 #endif

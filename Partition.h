@@ -24,6 +24,10 @@ public:
      */
     Partition(const Partition& other) = delete;
     /*
+     *  Asignacion por copia
+     */
+    Partition& operator=(const Partition&) = delete;
+    /*
      *  Constructor por movimiento
      */
     Partition(Partition&& other);
