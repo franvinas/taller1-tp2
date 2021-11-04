@@ -1,6 +1,7 @@
 #include "ResultsMonitor.h"
 #include <iostream>
 #include <string>
+#include <utility>
 
 void ResultsMonitor::add_result(std::string &result) {
     std::lock_guard<std::mutex> lock(this->mutex);
