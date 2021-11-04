@@ -33,11 +33,7 @@ public:
     bool done();
     /*
      *  Lee de entrada estandar las tareas a realizar y las encola como
-<<<<<<< HEAD
      *  instancias de Task en task_queue.
-=======
-     *   instancias de Task en task_queue.
->>>>>>> e6cb8638700ee08578847c72e2147d9b4e7a60a0
      */
     void read_tasks();
 };

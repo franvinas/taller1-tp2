@@ -29,9 +29,14 @@ int main(int argc, const char *argv[]) {
         taskQueue.read_tasks();
         workers.join_all();
         results.print_results();        
-    } catch(...) {
+    }  catch(const std::exception &e) {
+        std::cerr << "Se atrapó una excepcion: '" 
+                  << e.what() << "'" << std::endl;
         return 1;
-    } 
+    } catch(...) {
+        std::cerr << "Error desconocido" << std::endl;
+        return 1;
+    }
     
     return 0;
 }
