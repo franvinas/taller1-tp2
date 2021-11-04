@@ -53,7 +53,8 @@ std::string TaskAttributes::get_op() const {
     return this->op;
 }
 
-bool TaskAttributes::done() const {
+bool TaskAttributes::done() {
+    std::lock_guard<std::mutex> lock(this->mutex);
     return current_row >= end_range;
 }
 
@@ -72,5 +73,6 @@ PartitionMetadata TaskAttributes::new_partition_metadata() {
 }
 
 void TaskAttributes::partition_done() {
+    std::lock_guard<std::mutex> lock(this->mutex);
     this->partitions_done++;
 }

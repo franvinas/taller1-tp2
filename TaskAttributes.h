@@ -38,7 +38,7 @@ public:
      *  Devuelve true si ya se 'pidieron' todas las particiones
      *  sino devuelve false
      */
-    bool done() const;
+    bool done();
     /*
      *  Aumenta en 1 el contador de particiones procesadas
      */
