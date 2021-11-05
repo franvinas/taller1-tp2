@@ -17,10 +17,10 @@ Partition::Partition(std::vector<unsigned short int> &data,
 
 Partition::Partition(Partition&& other) {
     this->data = std::move(other.data);
-    this->rows = other.rows;
-    this->columns = other.columns;
-    this->current_row = other.current_row;
-    this->column = other.column;
+    this->rows = std::move(other.rows);
+    this->columns = std::move(other.columns);
+    this->current_row = std::move(other.current_row);
+    this->column = std::move(other.column);
 }
 
 Partition& Partition::operator=(Partition&& other) {
