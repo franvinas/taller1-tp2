@@ -9,7 +9,7 @@
 #include <utility>
 
 /***********************
-    Metodos publicos
+    Metodos privados
 ************************/
 
 Operation * Task::create_operation(const std::string &op_str) const {

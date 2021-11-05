@@ -1,4 +1,5 @@
 #include "PartitionMetadata.h"
+#include <utility>
 
 /***********************
     Metodos publicos
@@ -16,6 +17,12 @@ PartitionMetadata::PartitionMetadata() : from_row(0),
                                          to_row(0),
                                          column(0),
                                          empty(true) {}
+
+PartitionMetadata::PartitionMetadata(PartitionMetadata&& other) 
+                                    : from_row(std::move(other.from_row)),
+                                      to_row(std::move(other.to_row)),
+                                      column(std::move(other.column)),
+                                      empty(std::move(other.empty)) {}
 
 int PartitionMetadata::get_from_row() const {
     return this->from_row;

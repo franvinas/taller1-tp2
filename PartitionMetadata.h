@@ -20,6 +20,18 @@ public:
                       const int to_row, 
                       const int column);
     /*
+     *  Constructor por copia
+     */
+    PartitionMetadata(const PartitionMetadata&) = delete;
+    /*
+     *  Asignacion por copia
+     */
+    PartitionMetadata& operator=(const PartitionMetadata&) = delete;
+    /*
+     *  Constructor por movimiento
+     */
+    PartitionMetadata(PartitionMetadata&& other);
+    /*
      *  Devuelve numero de la fila inicial de la particion
      */
     int get_from_row() const;
